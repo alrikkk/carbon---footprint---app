@@ -24,7 +24,17 @@ html_template = """
             width: 100%; max-width: 450px; text-align: center;
         }
         h2 { color: #ffffff; font-weight: 700; font-size: 2.5rem; margin-bottom: 30px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        input { width: 100%; padding: 15px; margin: 10px 0; background: rgba(255, 255, 255, 0.3); border: 1.5px solid rgba(255, 255, 255, 0.6); border-radius: 15px; box-sizing: border-box; font-size: 16px; outline: none; color: white; }
+        
+        /* Updated Input Styling - Soft Grey */
+        input { 
+            width: 100%; padding: 15px; margin: 10px 0; 
+            background: rgba(200, 200, 200, 0.3); /* Soft Grey */
+            border: 1.5px solid rgba(255, 255, 255, 0.7); /* Clear White Outline */
+            border-radius: 15px; box-sizing: border-box; font-size: 16px; outline: none; color: white; 
+        }
+        input::placeholder { color: rgba(255, 255, 255, 0.9); }
+        input:focus { background: rgba(200, 200, 200, 0.5); }
+        
         button { width: auto; padding: 12px 30px; background: rgba(0, 113, 227, 0.8); color: white; border: none; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.4s ease; margin-top: 25px; }
         button:hover { background: rgba(0, 113, 227, 1); transform: translateY(-3px); }
         .result { margin-top: 30px; padding: 25px; background: rgba(255, 255, 255, 0.2); border-radius: 25px; color: white; }
