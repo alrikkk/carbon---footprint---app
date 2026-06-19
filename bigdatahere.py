@@ -12,9 +12,16 @@ html_template = """
         body { font-family: sans-serif; background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2670&auto=format&fit=crop') no-repeat center center fixed; background-size: cover; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         .card { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); padding: 40px; border-radius: 40px; box-shadow: 0 40px 80px rgba(0,0,0,0.3); width: 100%; max-width: 450px; text-align: center; }
         h2 { font-family: 'Press Start 2P', cursive; color: white; font-size: 1.2rem; text-shadow: 4px 4px 0px #000000; margin: 0; transition: transform 0.3s; }
+        h2:hover { animation: floatHeading 3s ease-in-out infinite; }
+        @keyframes floatHeading { 0%, 100% { transform: translateY(0px) scale(1.05); } 50% { transform: translateY(-5px) scale(1.05); } }
+        
         .subtitle { font-family: 'Press Start 2P', cursive; color: #fff; font-size: 0.7rem; margin-top: 10px; text-shadow: 2px 2px 0px #000000; }
         .icon-container { font-size: 3rem; animation: float 3s infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        
+        /* Remove spinner arrows from number inputs */
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
         
         .input-group { position: relative; display: flex; align-items: center; margin: 15px 0; }
         input, select { width: 100%; padding: 15px; background: rgba(255,255,255,0.7); border: none; border-radius: 15px; box-sizing: border-box; }
