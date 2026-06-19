@@ -12,12 +12,12 @@ html_template = """
         .card { background: white; padding: 40px; border-radius: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
                 width: 100%; max-width: 450px; text-align: center; }
         h2 { color: #1d1d1f; font-weight: 600; margin-bottom: 30px; }
-        input { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #d2d2d7; border-radius: 12px; 
-                box-sizing: border-box; font-size: 16px; }
-        button { width: 100%; padding: 15px; background-color: #0071e3; color: white; border: none; 
-                 border-radius: 12px; font-size: 16px; font-weight: 500; cursor: pointer; 
-                 transition: background-color 0.3s ease; margin-top: 20px; }
-        button:hover { background-color: #0077ed; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #d2d2d7; border-radius: 12px; 
+                box-sizing: border-box; font-size: 15px; }
+        button { width: auto; padding: 10px 20px; background-color: #0071e3; color: white; border: none; 
+                 border-radius: 20px; font-size: 14px; font-weight: 500; cursor: pointer; 
+                 transition: all 0.3s ease; margin-top: 20px; }
+        button:hover { background-color: #0077ed; transform: scale(1.02); }
         .result { margin-top: 30px; padding: 20px; background: #f5f5f7; border-radius: 20px; }
     </style>
 </head>
@@ -27,7 +27,7 @@ html_template = """
         <form method="POST">
             <input type="number" name="commute" placeholder="Daily Commute (km)" required>
             <input type="number" name="meat" placeholder="Meat meals per week" required>
-            <button type="submit">Calculate Impact</button>
+            <button type="submit">GET MY SCORE</button>
         </form>
         {% if footprint %}
             <div class="result">
@@ -50,28 +50,6 @@ def index():
         if footprint < 50: rank = "Eco-Warrior 🏆"
         elif footprint < 150: rank = "Intermediate 🥈"
         else: rank = "Needs Improvement 🥉"
-    return render_template_string(html_template, footprint=footprint, rank=rank)
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
-def index():
-    footprint = None
-    rank = None
-    if request.method == 'POST':
-        commute = float(request.form.get('commute', 0))
-        meat = float(request.form.get('meat', 0))
-        
-        # Calculate score
-        footprint = (commute * 0.2) + (meat * 5)
-        
-        # Determine Rank
-        if footprint < 50:
-            rank = "🌱 Eco-Warrior (Gold)"
-        elif footprint < 150:
-            rank = "🚶 Intermediate (Silver)"
-        else:
-            rank = "🌍 Needs Improvement (Bronze)"
-            
     return render_template_string(html_template, footprint=footprint, rank=rank)
 
 if __name__ == '__main__':
