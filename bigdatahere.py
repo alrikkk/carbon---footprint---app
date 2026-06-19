@@ -6,6 +6,7 @@ html_template = """
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
@@ -16,41 +17,25 @@ html_template = """
         .card { 
             background: rgba(255, 255, 255, 0.4); 
             backdrop-filter: blur(25px) saturate(180%); 
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.5);
             background-image: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%);
-            padding: 50px; 
-            border-radius: 40px; 
-            box-shadow: 0 40px 80px rgba(0,0,0,0.2), inset 0 0 20px rgba(255,255,255,0.2); 
-            width: 100%; 
-            max-width: 450px; 
-            text-align: center; 
+            padding: 50px; border-radius: 40px; 
+            box-shadow: 0 40px 80px rgba(0,0,0,0.2); 
+            width: 100%; max-width: 450px; text-align: center;
         }
-        
         h2 { color: #ffffff; font-weight: 700; font-size: 2.5rem; margin-bottom: 30px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        
-        /* Updated Input Styling for better visibility */
-        input { 
-            width: 100%; padding: 15px; margin: 10px 0; 
-            background: rgba(255, 255, 255, 0.3);
-            border: 1.5px solid rgba(255, 255, 255, 0.6); /* Increased border contrast */
-            border-radius: 15px; 
-            box-sizing: border-box; font-size: 16px; outline: none; color: white; 
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* Added subtle depth */
-        }
-        input::placeholder { color: rgba(255, 255, 255, 0.8); font-weight: 500; }
-        input:focus { background: rgba(255, 255, 255, 0.5); border-color: rgba(255, 255, 255, 0.9); }
-        
-        button { width: auto; padding: 12px 30px; background: rgba(0, 113, 227, 0.8); color: white; border: none; 
-                 border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; 
-                 transition: all 0.4s ease; margin-top: 25px; backdrop-filter: blur(5px); }
+        input { width: 100%; padding: 15px; margin: 10px 0; background: rgba(255, 255, 255, 0.3); border: 1.5px solid rgba(255, 255, 255, 0.6); border-radius: 15px; box-sizing: border-box; font-size: 16px; outline: none; color: white; }
+        button { width: auto; padding: 12px 30px; background: rgba(0, 113, 227, 0.8); color: white; border: none; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.4s ease; margin-top: 25px; }
         button:hover { background: rgba(0, 113, 227, 1); transform: translateY(-3px); }
-        
         .result { margin-top: 30px; padding: 25px; background: rgba(255, 255, 255, 0.2); border-radius: 25px; color: white; }
+        
+        /* Shake animation for "Needs Improvement" */
+        .shake { animation: shake 0.5s; }
+        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
     </style>
 </head>
 <body>
-    <div class="card">
+    <div class="card" id="card">
         <h2>EcoTrack</h2>
         <form method="POST">
             <input type="number" name="commute" placeholder="Daily Commute (km)" required>
@@ -58,10 +43,17 @@ html_template = """
             <button type="submit">GET MY SCORE</button>
         </form>
         {% if footprint %}
-            <div class="result">
+            <div class="result" id="result-box">
                 <p>Weekly Emissions: <strong>{{ footprint }} kg</strong></p>
                 <p>Rank: <strong>{{ rank }}</strong></p>
             </div>
+            <script>
+                {% if rank == "Eco-Warrior 🏆" %}
+                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+                {% elif rank == "Needs Improvement 🥉" %}
+                    document.getElementById('card').classList.add('shake');
+                {% endif %}
+            </script>
         {% endif %}
     </div>
 </body>
