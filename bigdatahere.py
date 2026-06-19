@@ -12,10 +12,14 @@ html_template = """
         body { font-family: sans-serif; background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2670&auto=format&fit=crop') no-repeat center center fixed; background-size: cover; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .card { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); padding: 40px; border-radius: 40px; box-shadow: 0 40px 80px rgba(0,0,0,0.3); width: 100%; max-width: 450px; text-align: center; transition: background 0.5s ease; }
         .header-container { display: flex; flex-direction: column; align-items: center; gap: 5px; margin-bottom: 25px; }
-        h2 { font-family: 'Press Start 2P', cursive; color: white; font-size: 1.2rem; text-shadow: 4px 4px 0px #000000; margin: 0; }
-        .subtitle { font-family: 'Press Start 2P', cursive; color: #e0e0e0; font-size: 0.5rem; margin: 0; }
         
-        .leaf-icon { width: 45px; height: auto; animation: float 3s ease-in-out infinite; image-rendering: pixelated; margin-bottom: 10px; }
+        h2 { font-family: 'Press Start 2P', cursive; color: white; font-size: 1.2rem; text-shadow: 4px 4px 0px #000000; margin: 0; transition: transform 0.3s ease-in-out; }
+        h2:hover { animation: floatHeading 3s ease-in-out infinite; }
+        @keyframes floatHeading { 0%, 100% { transform: translateY(0px) scale(1.05); } 50% { transform: translateY(-5px) scale(1.05); } }
+
+        .subtitle { font-family: 'Press Start 2P', cursive; color: #fff; font-size: 0.7rem; margin: 0; text-shadow: 2px 2px 0px #000000; visibility: visible; }
+        
+        .pixel-creeper { width: 45px; height: auto; animation: float 3s ease-in-out infinite; image-rendering: pixelated; margin-bottom: 10px; }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
         
         .input-group { position: relative; display: flex; align-items: center; margin: 8px 0; }
@@ -39,7 +43,7 @@ html_template = """
 <body>
     <div class="card" id="card">
         <div class="header-container">
-            <img src="https://cdn-icons-png.flaticon.com/512/3241/3241834.png" class="leaf-icon" alt="Leaf">
+            <img src="https://cdn.icon-icons.com/icons2/2361/PNG/512/minecraft_creeper_head_icon_143431.png" class="pixel-creeper" alt="Creeper">
             <h2>Lif</h2>
             <p class="subtitle">Track your carbon footprint.</p>
         </div>
