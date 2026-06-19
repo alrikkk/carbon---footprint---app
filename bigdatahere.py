@@ -22,13 +22,15 @@ html_template = """
         
         button { width: 100%; padding: 15px; background: #0071e3; color: white; border: none; border-radius: 20px; cursor: pointer; margin-top: 15px; }
         
-        /* XP Bar - The 'Game' Feel */
         .xp-container { background: rgba(0,0,0,0.2); height: 25px; border-radius: 12px; margin-top: 20px; overflow: hidden; position: relative; }
         .xp-fill { height: 100%; width: 0%; transition: width 2s cubic-bezier(0.17, 0.67, 0.5, 1.03); border-radius: 12px; }
         
         .feedback { margin-top: 20px; color: white; font-weight: bold; }
         .methodology { margin-top: 20px; color: rgba(255,255,255,0.7); font-size: 0.7rem; }
         .warning-flash { background: rgba(255, 99, 71, 0.6) !important; }
+        
+        .shake { animation: shake 0.5s; }
+        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
     </style>
 </head>
 <body>
@@ -51,11 +53,13 @@ html_template = """
             <script> document.getElementById('card').classList.add('warning-flash'); </script>
         {% elif score %}
             <div class="xp-container"><div id="xp" class="xp-fill" style="background-color: {{ color }};"></div></div>
+            <p class="feedback">Rank: <strong>{{ rank }}</strong></p>
             <p class="feedback">{{ message }}</p>
             <p class="methodology">Calculations based on average CO2 impact.</p>
             <script>
-                // This ensures the animation triggers AFTER the page renders
                 setTimeout(() => { document.getElementById('xp').style.width = '{{ score_pct }}%'; }, 300);
+                {% if rank == "Eco-Warrior 🏆" %} confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+                {% elif rank == "Needs Improvement 🥉" %} document.getElementById('card').classList.add('shake'); {% endif %}
             </script>
         {% endif %}
     </div>
@@ -78,11 +82,11 @@ def index():
         score = min(raw_score, 300)
         score_pct = (score / 300) * 100
         
-        if score < 50: color, msg = "#2ecc71", "Great job! Keep walking or biking to stay in the green."
-        elif score < 150: color, msg = "#f1c40f", "Doing okay. Try swapping one meat meal for a plant-based option!"
-        else: color, msg = "#e74c3c", "Your footprint is high. Consider carpooling or using public transport."
+        if score < 50: rank, color, msg = "Eco-Warrior 🏆", "#2ecc71", "Great job! Keep walking or biking to stay in the green."
+        elif score < 150: rank, color, msg = "Intermediate 🥈", "#f1c40f", "Doing okay. Try swapping one meat meal for a plant-based option!"
+        else: rank, color, msg = "Needs Improvement 🥉", "#e74c3c", "Your footprint is high. Consider carpooling or using public transport."
             
-        return render_template_string(html_template, score=score, score_pct=score_pct, color=color, message=msg)
+        return render_template_string(html_template, score=score, score_pct=score_pct, color=color, message=msg, rank=rank)
     return render_template_string(html_template)
 
 if __name__ == '__main__':
