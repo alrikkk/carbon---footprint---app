@@ -27,4 +27,4 @@ While EcoLife is fully functional for this challenge, I have planned the followi
 3. **Advanced Analytics:** Detailed charts visualizing carbon reduction trends over months.
 
 ---
-*Built with passion by Alrik Chishi for the PromptWars Virtual Challenge.*
+*Built with passion by Alrik for the PromptWars Virtual Challenge.*
