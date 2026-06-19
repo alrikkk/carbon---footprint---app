@@ -33,8 +33,9 @@ html_template = """
             text-shadow: 4px 4px 0px #000000; 
         }
         
-        .leaf { 
-            width: 40px; height: auto; 
+        /* Updated to Headphones icon */
+        .headphones { 
+            width: 45px; height: auto; 
             animation: float 3s ease-in-out infinite;
             image-rendering: pixelated;
         }
@@ -67,7 +68,7 @@ html_template = """
     <div class="card" id="card">
         <div class="header-container">
             <h2>ECOTRACK</h2>
-            <img src="https://cdn-icons-png.flaticon.com/512/875/875567.png" class="leaf" alt="Leaf">
+            <img src="https://cdn-icons-png.flaticon.com/512/3067/3067425.png" class="headphones" alt="Headphones">
         </div>
         <form method="POST">
             <input type="number" name="commute" inputmode="numeric" placeholder="Daily Commute (km)" required>
