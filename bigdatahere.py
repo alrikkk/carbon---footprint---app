@@ -7,15 +7,29 @@ html_template = """
 <html>
 <head>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-               background-color: #f5f5f7; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 50px; border-radius: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.1); 
-                width: 100%; max-width: 450px; text-align: center; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            /* Nature background image */
+            background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2670&auto=format&fit=crop') no-repeat center center fixed; 
+            background-size: cover;
+            display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; 
+        }
+        .card { 
+            /* Frosted glass effect */
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px); 
+            padding: 50px; 
+            border-radius: 30px; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2); 
+            width: 100%; 
+            max-width: 450px; 
+            text-align: center; 
+        }
         
-        /* Updated Heading Styling */
         h2 { color: #1d1d1f; font-weight: 700; font-size: 2.5rem; margin-bottom: 35px; letter-spacing: -0.5px; }
         
-        input { width: 100%; padding: 14px; margin: 12px 0; border: 1px solid #d2d2d7; border-radius: 14px; 
+        input { width: 100%; padding: 14px; margin: 12px 0; border: 1px solid rgba(0,0,0,0.1); border-radius: 14px; 
                 box-sizing: border-box; font-size: 16px; }
         
         button { width: auto; padding: 10px 22px; background-color: #0071e3; color: white; border: none; 
@@ -23,7 +37,7 @@ html_template = """
                  transition: all 0.3s ease; margin-top: 25px; }
         button:hover { background-color: #0077ed; transform: scale(1.03); }
         
-        .result { margin-top: 35px; padding: 25px; background: #f5f5f7; border-radius: 22px; }
+        .result { margin-top: 35px; padding: 25px; background: rgba(255, 255, 255, 0.5); border-radius: 22px; }
     </style>
 </head>
 <body>
