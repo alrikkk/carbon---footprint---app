@@ -10,7 +10,7 @@ html_template = """
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
             background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2670&auto=format&fit=crop') no-repeat center center fixed; 
             background-size: cover;
             display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; 
@@ -25,14 +25,20 @@ html_template = """
             width: 100%; max-width: 450px; text-align: center;
         }
         
-        /* Minecraft/8-bit Style Heading */
-        .header-container { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 30px; }
+        .header-container { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 30px; }
+        
         h2 { 
             font-family: 'Press Start 2P', cursive;
             color: #ffffff; font-size: 1.5rem; 
-            text-shadow: 4px 4px 0px #000000; /* 8-bit drop shadow effect */
+            text-shadow: 4px 4px 0px #000000; 
         }
-        .leaf { width: 40px; height: auto; animation: float 3s ease-in-out infinite; }
+        
+        .leaf { 
+            width: 40px; height: auto; 
+            animation: float 3s ease-in-out infinite;
+            image-rendering: pixelated;
+        }
+        
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
 
         input { 
@@ -44,8 +50,13 @@ html_template = """
         input::placeholder { color: rgba(255, 255, 255, 0.9); }
         input:focus { background: rgba(200, 200, 200, 0.7); border-color: white; }
         
-        button { width: auto; padding: 12px 30px; background: rgba(0, 113, 227, 0.8); color: white; border: none; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.4s ease; margin-top: 25px; }
+        button { 
+            width: auto; padding: 12px 30px; background: rgba(0, 113, 227, 0.8); color: white; border: none; 
+            border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; 
+            transition: all 0.4s ease; margin-top: 25px; 
+        }
         button:hover { background: rgba(255, 105, 180, 0.9); transform: translateY(-3px); }
+        
         .result { margin-top: 30px; padding: 25px; background: rgba(255, 255, 255, 0.2); border-radius: 25px; color: white; }
         
         .shake { animation: shake 0.5s; }
@@ -56,11 +67,11 @@ html_template = """
     <div class="card" id="card">
         <div class="header-container">
             <h2>ECOTRACK</h2>
-            <img src="https://cdn-icons-png.flaticon.com/512/3221/3221876.png" class="leaf" alt="Leaf">
+            <img src="https://cdn-icons-png.flaticon.com/512/875/875567.png" class="leaf" alt="Leaf">
         </div>
         <form method="POST">
-            <input type="number" name="commute" placeholder="Daily Commute (km)" required>
-            <input type="number" name="meat" placeholder="Meat meals per week" required>
+            <input type="number" name="commute" inputmode="numeric" placeholder="Daily Commute (km)" required>
+            <input type="number" name="meat" inputmode="numeric" placeholder="Meat meals per week" required>
             <button type="submit">GET MY SCORE</button>
         </form>
         {% if footprint %}
