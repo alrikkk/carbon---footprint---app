@@ -13,15 +13,6 @@ html_template = """
         .card { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); padding: 40px; border-radius: 40px; box-shadow: 0 40px 80px rgba(0,0,0,0.3); width: 100%; max-width: 450px; text-align: center; position: relative; }
         
         h2 { font-family: 'Press Start 2P', cursive; color: white; font-size: 1.2rem; text-shadow: 4px 4px 0px #000000; margin: 0; transition: 0.3s; cursor: pointer; }
-        /* RGB Wave Effect on Hover */
-        h2:hover { 
-            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3); 
-            background-size: 400%; 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            animation: rgbWave 3s linear infinite;
-        }
-        @keyframes rgbWave { 0% { background-position: 0% 50%; } 100% { background-position: 400% 50%; } }
         
         .subtitle { font-family: 'Press Start 2P', cursive; color: #fff; font-size: 0.7rem; margin-top: 10px; text-shadow: 2px 2px 0px #000000; }
         .icon-container { font-size: 3rem; animation: float 3s infinite; }
@@ -51,7 +42,7 @@ html_template = """
         <div class="anger">💢</div>
         {% endif %}
         <div class="icon-container">🌱</div>
-        <h2>EcoLife</h2>
+        <h2 id="banana-header">EcoLife</h2>
         <p class="subtitle">Track your carbon footprint.</p>
         
         <form id="calcForm" method="POST">
@@ -82,6 +73,18 @@ html_template = """
     </div>
 
     <script>
+        // Banana Rain Effect
+        document.getElementById('banana-header').addEventListener('mouseover', () => {
+            confetti({
+                particleCount: 50,
+                spread: 70,
+                origin: { y: 0.2 },
+                shapes: ['circle'],
+                scalar: 2,
+                emoji: ['🍌']
+            });
+        });
+
         {% if score and not warning %}
             let history = JSON.parse(localStorage.getItem('ecoHistory') || '[]');
             history.push({name: '{{ username }}', score: {{ score }}, rank: '{{ rank }}'});
