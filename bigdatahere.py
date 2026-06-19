@@ -33,11 +33,10 @@ html_template = """
             text-shadow: 4px 4px 0px #000000; 
         }
         
-        /* Updated: 8-bit Pixel Leaf */
         .leaf-icon { 
             width: 45px; height: auto; 
             animation: float 3s ease-in-out infinite;
-            image-rendering: pixelated; /* Keeps it sharp and blocky */
+            image-rendering: pixelated; 
         }
         
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
@@ -61,6 +60,9 @@ html_template = """
         
         .result { margin-top: 30px; padding: 25px; background: rgba(255, 255, 255, 0.2); border-radius: 25px; color: white; }
         
+        /* Credibility footer */
+        .methodology { margin-top: 20px; color: rgba(255,255,255,0.7); font-size: 0.75rem; }
+        
         .shake { animation: shake 0.5s; }
         @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
     </style>
@@ -72,8 +74,8 @@ html_template = """
             <img src="https://cdn-icons-png.flaticon.com/512/875/875567.png" class="leaf-icon" alt="Leaf">
         </div>
         <form method="POST">
-            <input type="number" name="commute" inputmode="numeric" placeholder="Daily Commute (km)" required>
-            <input type="number" name="meat" inputmode="numeric" placeholder="Meat meals per week" required>
+            <input type="number" name="commute" inputmode="numeric" step="0.1" max="500" placeholder="Daily Commute (km)" required>
+            <input type="number" name="meat" inputmode="numeric" max="21" placeholder="Meat meals per week" required>
             <button type="submit">GET MY SCORE</button>
         </form>
         {% if footprint %}
@@ -81,6 +83,7 @@ html_template = """
                 <p>Weekly Emissions: <strong>{{ footprint }} kg</strong></p>
                 <p>Rank: <strong>{{ rank }}</strong></p>
             </div>
+            <p class="methodology">Calculations based on average CO2 impact per km and meal.</p>
             <script>
                 {% if rank == "Eco-Warrior 🏆" %}
                     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
