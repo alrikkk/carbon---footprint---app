@@ -17,9 +17,10 @@ html_template = """
         h2:hover { animation: floatHeading 3s ease-in-out infinite; }
         @keyframes floatHeading { 0%, 100% { transform: translateY(0px) scale(1.05); } 50% { transform: translateY(-5px) scale(1.05); } }
 
-        .subtitle { font-family: 'Press Start 2P', cursive; color: #fff; font-size: 0.7rem; margin: 0; text-shadow: 2px 2px 0px #000000; visibility: visible; }
+        .subtitle { font-family: 'Press Start 2P', cursive; color: #fff; font-size: 0.7rem; margin: 0; text-shadow: 2px 2px 0px #000000; }
         
-        .pixel-creeper { width: 45px; height: auto; animation: float 3s ease-in-out infinite; image-rendering: pixelated; margin-bottom: 10px; }
+        /* Sprout Emoji Icon */
+        .icon-container { font-size: 3rem; animation: float 3s ease-in-out infinite; margin-bottom: 5px; }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
         
         .input-group { position: relative; display: flex; align-items: center; margin: 8px 0; }
@@ -43,7 +44,7 @@ html_template = """
 <body>
     <div class="card" id="card">
         <div class="header-container">
-            <img src="https://cdn.icon-icons.com/icons2/2361/PNG/512/minecraft_creeper_head_icon_143431.png" class="pixel-creeper" alt="Creeper">
+            <div class="icon-container">🌱</div>
             <h2>Lif</h2>
             <p class="subtitle">Track your carbon footprint.</p>
         </div>
