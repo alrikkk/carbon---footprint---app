@@ -14,7 +14,7 @@ html_template = """
         .header-container { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 25px; }
         h2 { font-family: 'Press Start 2P', cursive; color: white; font-size: 1.2rem; text-shadow: 4px 4px 0px #000000; }
         
-        /* Restored Pixel Leaf */
+        /* Updated Pixel Leaf */
         .leaf-icon { width: 45px; height: auto; animation: float 3s ease-in-out infinite; image-rendering: pixelated; }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
         
@@ -40,7 +40,7 @@ html_template = """
     <div class="card" id="card">
         <div class="header-container">
             <h2>ECOTRACK</h2>
-            <img src="http://googleusercontent.com/image_collection/image_retrieval/14170179704463624986_0" class="leaf-icon" alt="Leaf">
+            <img src="https://cdn-icons-png.flaticon.com/512/3241/3241834.png" class="leaf-icon" alt="Leaf">
         </div>
         <form method="POST">
             <div class="input-group">
