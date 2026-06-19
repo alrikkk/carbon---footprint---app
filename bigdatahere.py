@@ -6,91 +6,66 @@ html_template = """
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2670&auto=format&fit=crop') no-repeat center center fixed; 
-            background-size: cover;
-            display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; 
-        }
-        .card { 
-            background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px) saturate(180%); 
-            border: 1px solid rgba(255, 255, 255, 0.5); padding: 50px; border-radius: 40px; 
-            box-shadow: 0 40px 80px rgba(0,0,0,0.2); width: 100%; max-width: 450px; text-align: center;
-            transition: background 0.5s ease;
-        }
-        .header-container { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 30px; }
-        h2 { font-family: 'Press Start 2P', cursive; color: #ffffff; font-size: 1.5rem; text-shadow: 4px 4px 0px #000000; }
-        .leaf-icon { width: 45px; height: auto; animation: float 3s ease-in-out infinite; image-rendering: pixelated; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-        input { 
-            width: 100%; padding: 15px; margin: 10px 0; background: rgba(200, 200, 200, 0.5); 
-            border: 1.5px solid rgba(255, 255, 255, 0.8); border-radius: 15px; box-sizing: border-box; 
-            font-size: 16px; outline: none; color: white; box-shadow: inset 0 3px 6px rgba(0,0,0,0.2); 
-        }
-        button { width: auto; padding: 12px 30px; background: rgba(0, 113, 227, 0.8); color: white; border: none; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.4s ease; margin-top: 25px; }
-        button:hover { background: rgba(255, 105, 180, 0.9); transform: translateY(-3px); }
-        .result { margin-top: 30px; padding: 25px; background: rgba(255, 255, 255, 0.2); border-radius: 25px; color: white; }
-        .methodology { margin-top: 20px; color: rgba(255,255,255,0.7); font-size: 0.75rem; }
+        body { font-family: sans-serif; background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2670&auto=format&fit=crop') no-repeat center center fixed; background-size: cover; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); padding: 40px; border-radius: 40px; box-shadow: 0 40px 80px rgba(0,0,0,0.3); width: 100%; max-width: 450px; text-align: center; }
+        h2 { font-family: 'Press Start 2P', cursive; color: white; font-size: 1.2rem; margin-bottom: 25px; }
+        input, select { width: 100%; padding: 15px; margin: 8px 0; background: rgba(255,255,255,0.7); border: none; border-radius: 15px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #0071e3; color: white; border: none; border-radius: 20px; cursor: pointer; margin-top: 15px; }
         
-        /* Effects */
-        .shake { animation: shake 0.5s; }
-        @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
-        .warning-flash { background: rgba(255, 99, 71, 0.6) !important; animation: flash 0.8s ease; }
-        @keyframes flash { 0% { border-color: white; } 50% { border-color: red; } 100% { border-color: white; } }
+        /* XP Bar */
+        .xp-container { background: rgba(0,0,0,0.2); height: 25px; border-radius: 12px; margin-top: 20px; overflow: hidden; }
+        .xp-fill { height: 100%; width: 0%; transition: width 2s ease-in-out; border-radius: 12px; }
+        
+        .feedback { margin-top: 20px; color: white; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="card" id="card">
-        <div class="header-container">
-            <h2>ECOTRACK</h2>
-            <img src="https://cdn-icons-png.flaticon.com/512/875/875567.png" class="leaf-icon" alt="Leaf">
-        </div>
+    <div class="card">
+        <h2>ECOTRACK</h2>
         <form method="POST">
-            <input type="number" name="commute" inputmode="numeric" step="0.1" placeholder="Daily Commute (km)" required>
-            <input type="number" name="meat" inputmode="numeric" placeholder="Meat meals per week" required>
-            <button type="submit">GET MY SCORE</button>
+            <input type="number" name="commute" step="0.1" placeholder="Daily Commute" required>
+            <select name="unit"><option value="km">Kilometers (km)</option><option value="miles">Miles (mi)</option></select>
+            <input type="number" name="meat" placeholder="Meat meals/week" required>
+            <button type="submit">CALCULATE SCORE</button>
         </form>
-        {% if warning %}
-            <div class="result" id="result-box">
-                <p><strong>⚠️ {{ warning }}</strong></p>
-            </div>
-            <script> document.getElementById('card').classList.add('warning-flash'); </script>
-        {% elif footprint %}
-            <div class="result" id="result-box">
-                <p>Weekly Emissions: <strong>{{ footprint }} kg</strong></p>
-                <p>Rank: <strong>{{ rank }}</strong></p>
-            </div>
-            <p class="methodology">Calculations based on average CO2 impact per km and meal.</p>
-            <script>
-                {% if rank == "Eco-Warrior 🏆" %} confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-                {% elif rank == "Needs Improvement 🥉" %} document.getElementById('card').classList.add('shake'); {% endif %}
-            </script>
+        {% if score %}
+            <div class="xp-container"><div id="xp" class="xp-fill" style="width: {{ score_pct }}%; background-color: {{ color }};"></div></div>
+            <p class="feedback">{{ message }}</p>
         {% endif %}
     </div>
+    <script>
+        // Trigger animation on load if score exists
+        {% if score %} setTimeout(() => { document.getElementById('xp').style.width = '{{ score_pct }}%'; }, 100); {% endif %}
+    </script>
 </body>
 </html>
 """
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    footprint, rank, warning = None, None, None
     if request.method == 'POST':
-        commute = float(request.form.get('commute', 0))
+        dist = float(request.form.get('commute', 0))
+        unit = request.form.get('unit')
         meat = float(request.form.get('meat', 0))
         
-        # Extreme value check
-        if commute > 1000 or meat > 50:
-            warning = "Whoa there, space traveler! That's a bit extreme for a daily habit. Let's try something a bit more realistic."
-        else:
-            footprint = round((commute * 0.2) + (meat * 5), 2)
-            if footprint < 50: rank = "Eco-Warrior 🏆"
-            elif footprint < 150: rank = "Intermediate 🥈"
-            else: rank = "Needs Improvement 🥉"
+        # Convert miles to km for base calculation
+        km = dist * 1.609 if unit == 'miles' else dist
+        raw_score = (km * 0.2) + (meat * 5)
+        score = min(raw_score, 300) # Cap for percentage
+        score_pct = (score / 300) * 100
+        
+        # Color and Feedback
+        if score < 50: 
+            color, msg = "#2ecc71", "Great job! Keep walking or biking to stay in the green."
+        elif score < 150: 
+            color, msg = "#f1c40f", "Doing okay. Try swapping one meat meal for a plant-based option!"
+        else: 
+            color, msg = "#e74c3c", "Your footprint is high. Consider carpooling or using public transport."
             
-    return render_template_string(html_template, footprint=footprint, rank=rank, warning=warning)
+        return render_template_string(html_template, score=score, score_pct=score_pct, color=color, message=msg)
+    return render_template_string(html_template)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
