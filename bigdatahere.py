@@ -40,7 +40,7 @@ html_template = """
     <div class="card" id="card">
         <div class="header-container">
             <h2>ECOTRACK</h2>
-            <img src="https://cdn-icons-png.flaticon.com/512/3241/3241834.png" class="leaf-icon" alt="Leaf">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/14170179704463624986_0" class="leaf-icon" alt="Leaf">
         </div>
         <form method="POST">
             <div class="input-group">
