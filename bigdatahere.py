@@ -13,6 +13,8 @@ html_template = """
         .card { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); padding: 40px; border-radius: 40px; box-shadow: 0 40px 80px rgba(0,0,0,0.3); width: 100%; max-width: 450px; text-align: center; transition: background 0.5s ease; }
         .header-container { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 25px; }
         h2 { font-family: 'Press Start 2P', cursive; color: white; font-size: 1.2rem; text-shadow: 4px 4px 0px #000000; }
+        
+        /* Restored Pixel Leaf */
         .leaf-icon { width: 45px; height: auto; animation: float 3s ease-in-out infinite; image-rendering: pixelated; }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
         
@@ -20,7 +22,6 @@ html_template = """
         input, select { width: 100%; padding: 15px; background: rgba(255,255,255,0.7); border: none; border-radius: 15px; box-sizing: border-box; }
         select { position: absolute; right: 10px; background: transparent; font-weight: bold; cursor: pointer; outline: none; width: auto; }
         
-        /* Restored Button with Pink Hover */
         button { width: 100%; padding: 15px; background: rgba(0, 113, 227, 0.8); color: white; border: none; border-radius: 20px; cursor: pointer; margin-top: 15px; transition: all 0.4s ease; }
         button:hover { background: rgba(255, 105, 180, 0.9); transform: translateY(-3px); }
         
@@ -30,6 +31,7 @@ html_template = """
         .feedback { margin-top: 20px; color: white; font-weight: bold; }
         .methodology { margin-top: 20px; color: rgba(255,255,255,0.7); font-size: 0.7rem; }
         .warning-flash { background: rgba(255, 99, 71, 0.6) !important; }
+        
         .shake { animation: shake 0.5s; }
         @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
     </style>
@@ -38,7 +40,7 @@ html_template = """
     <div class="card" id="card">
         <div class="header-container">
             <h2>ECOTRACK</h2>
-            <img src="https://cdn-icons-png.flaticon.com/512/875/875567.png" class="leaf-icon" alt="Leaf">
+            <img src="http://googleusercontent.com/image_collection/image_retrieval/14170179704463624986_0" class="leaf-icon" alt="Leaf">
         </div>
         <form method="POST">
             <div class="input-group">
@@ -85,7 +87,7 @@ def index():
         
         if score < 50: rank, color, msg = "Eco-Warrior 🏆", "#2ecc71", "Great job! Keep walking or biking to stay in the green."
         elif score < 150: rank, color, msg = "Intermediate 🥈", "#f1c40f", "Doing okay. Try swapping one meat meal for a plant-based option!"
-        else: rank, color, msg = "Needs Improvement 🥉", "#e74c3c", "Your footprint is high. Consider carpooling or using public transport."
+        else: rank, color, msg = "Needs Improvement 🥉", "#e74c3c", "Your footprint is high. Consider carpooling or using public transport!"
             
         return render_template_string(html_template, score=score, score_pct=score_pct, color=color, message=msg, rank=rank)
     return render_template_string(html_template)
