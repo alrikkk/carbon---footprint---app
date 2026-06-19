@@ -33,21 +33,21 @@ html_template = """
             text-shadow: 4px 4px 0px #000000; 
         }
         
-        .headphones { 
+        /* Updated: 8-bit Pixel Leaf */
+        .leaf-icon { 
             width: 45px; height: auto; 
             animation: float 3s ease-in-out infinite;
-            image-rendering: pixelated;
+            image-rendering: pixelated; /* Keeps it sharp and blocky */
         }
         
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
 
-        /* Updated Input Styling with inset shadow for depth */
         input { 
             width: 100%; padding: 15px; margin: 10px 0; 
             background: rgba(200, 200, 200, 0.5); 
             border: 1.5px solid rgba(255, 255, 255, 0.8); 
             border-radius: 15px; box-sizing: border-box; font-size: 16px; outline: none; color: white;
-            box-shadow: inset 0 3px 6px rgba(0,0,0,0.2); /* Added depth shadow */
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.2);
         }
         input::placeholder { color: rgba(255, 255, 255, 0.9); }
         input:focus { background: rgba(200, 200, 200, 0.7); border-color: white; }
@@ -69,7 +69,7 @@ html_template = """
     <div class="card" id="card">
         <div class="header-container">
             <h2>ECOTRACK</h2>
-            <img src="https://cdn-icons-png.flaticon.com/512/3067/3067425.png" class="headphones" alt="Headphones">
+            <img src="https://cdn-icons-png.flaticon.com/512/875/875567.png" class="leaf-icon" alt="Leaf">
         </div>
         <form method="POST">
             <input type="number" name="commute" inputmode="numeric" placeholder="Daily Commute (km)" required>
