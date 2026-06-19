@@ -75,18 +75,8 @@ html_template = """
     <script>
         // Banana Rain Effect
         document.getElementById('banana-header').addEventListener('mouseover', () => {
-            confetti({
-                particleCount: 40,
-                spread: 70,
-                origin: { y: 0.1 },
-                scalar: 3,
-                shapes: ['text'],
-                shapeOptions: {
-                    text: {
-                        textValue: '🍌',
-                    }
-                }
-            });
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            confetti({ ...defaults, particleCount: 20, scalar: 2, shapes: ['text'], shapeOptions: { text: { textValue: '🍌' } } });
         });
 
         {% if score and not warning %}
@@ -135,4 +125,5 @@ def index():
     return render_template_string(html_template)
 
 if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8080)
     app.run(host='0.0.0.0', port=8080)
