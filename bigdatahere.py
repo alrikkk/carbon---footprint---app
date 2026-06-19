@@ -11,9 +11,17 @@ html_template = """
     <style>
         body { font-family: sans-serif; background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2670&auto=format&fit=crop') no-repeat center center fixed; background-size: cover; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         .card { background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px); padding: 40px; border-radius: 40px; box-shadow: 0 40px 80px rgba(0,0,0,0.3); width: 100%; max-width: 450px; text-align: center; position: relative; }
-        h2 { font-family: 'Press Start 2P', cursive; color: white; font-size: 1.2rem; text-shadow: 4px 4px 0px #000000; margin: 0; transition: transform 0.3s; }
-        h2:hover { animation: floatHeading 3s ease-in-out infinite; }
-        @keyframes floatHeading { 0%, 100% { transform: translateY(0px) scale(1.05); } 50% { transform: translateY(-5px) scale(1.05); } }
+        
+        h2 { font-family: 'Press Start 2P', cursive; color: white; font-size: 1.2rem; text-shadow: 4px 4px 0px #000000; margin: 0; transition: 0.3s; cursor: pointer; }
+        /* RGB Wave Effect on Hover */
+        h2:hover { 
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3); 
+            background-size: 400%; 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            animation: rgbWave 3s linear infinite;
+        }
+        @keyframes rgbWave { 0% { background-position: 0% 50%; } 100% { background-position: 400% 50%; } }
         
         .subtitle { font-family: 'Press Start 2P', cursive; color: #fff; font-size: 0.7rem; margin-top: 10px; text-shadow: 2px 2px 0px #000000; }
         .icon-container { font-size: 3rem; animation: float 3s infinite; }
