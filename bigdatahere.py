@@ -7,18 +7,23 @@ html_template = """
 <html>
 <head>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
                background-color: #f5f5f7; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .card { background: white; padding: 40px; border-radius: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
+        .card { background: white; padding: 50px; border-radius: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.1); 
                 width: 100%; max-width: 450px; text-align: center; }
-        h2 { color: #1d1d1f; font-weight: 600; margin-bottom: 30px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #d2d2d7; border-radius: 12px; 
-                box-sizing: border-box; font-size: 15px; }
-        button { width: auto; padding: 10px 20px; background-color: #0071e3; color: white; border: none; 
-                 border-radius: 20px; font-size: 14px; font-weight: 500; cursor: pointer; 
-                 transition: all 0.3s ease; margin-top: 20px; }
-        button:hover { background-color: #0077ed; transform: scale(1.02); }
-        .result { margin-top: 30px; padding: 20px; background: #f5f5f7; border-radius: 20px; }
+        
+        /* Updated Heading Styling */
+        h2 { color: #1d1d1f; font-weight: 700; font-size: 2.5rem; margin-bottom: 35px; letter-spacing: -0.5px; }
+        
+        input { width: 100%; padding: 14px; margin: 12px 0; border: 1px solid #d2d2d7; border-radius: 14px; 
+                box-sizing: border-box; font-size: 16px; }
+        
+        button { width: auto; padding: 10px 22px; background-color: #0071e3; color: white; border: none; 
+                 border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; 
+                 transition: all 0.3s ease; margin-top: 25px; }
+        button:hover { background-color: #0077ed; transform: scale(1.03); }
+        
+        .result { margin-top: 35px; padding: 25px; background: #f5f5f7; border-radius: 22px; }
     </style>
 </head>
 <body>
