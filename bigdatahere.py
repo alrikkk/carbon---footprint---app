@@ -14,32 +14,34 @@ html_template = """
             display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; 
         }
         .card { 
-            /* Refined Liquid Glass Effect */
-            background: rgba(255, 255, 255, 0.7); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* Water-Glass Liquid Effect */
+            background: rgba(255, 255, 255, 0.4); 
+            backdrop-filter: blur(25px) saturate(180%); 
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background-image: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%);
             padding: 50px; 
-            border-radius: 35px; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.15); 
+            border-radius: 40px; 
+            box-shadow: 0 40px 80px rgba(0,0,0,0.2), inset 0 0 20px rgba(255,255,255,0.2); 
             width: 100%; 
             max-width: 450px; 
             text-align: center; 
         }
         
-        h2 { color: #1d1d1f; font-weight: 700; font-size: 2.2rem; margin-bottom: 30px; letter-spacing: -0.5px; }
+        h2 { color: #ffffff; font-weight: 700; font-size: 2.5rem; margin-bottom: 30px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         
-        input { width: 100%; padding: 15px; margin: 10px 0; background: rgba(255,255,255,0.6);
-                border: 1px solid rgba(255,255,255,0.5); border-radius: 14px; 
-                box-sizing: border-box; font-size: 16px; outline: none; transition: 0.3s; }
-        input:focus { background: rgba(255,255,255,0.9); }
+        input { width: 100%; padding: 15px; margin: 10px 0; background: rgba(255,255,255,0.2);
+                border: 1px solid rgba(255,255,255,0.3); border-radius: 15px; 
+                box-sizing: border-box; font-size: 16px; outline: none; color: white; }
+        input::placeholder { color: rgba(255,255,255,0.7); }
+        input:focus { background: rgba(255,255,255,0.4); }
         
-        button { width: auto; padding: 12px 25px; background-color: #0071e3; color: white; border: none; 
+        button { width: auto; padding: 12px 30px; background: rgba(0, 113, 227, 0.8); color: white; border: none; 
                  border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; 
-                 transition: all 0.3s ease; margin-top: 25px; box-shadow: 0 4px 15px rgba(0,113,227,0.3); }
-        button:hover { background-color: #0077ed; transform: translateY(-2px); }
+                 transition: all 0.4s ease; margin-top: 25px; backdrop-filter: blur(5px); }
+        button:hover { background: rgba(0, 113, 227, 1); transform: translateY(-3px); }
         
-        .result { margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.4); border-radius: 20px; }
+        .result { margin-top: 30px; padding: 25px; background: rgba(255, 255, 255, 0.2); border-radius: 25px; color: white; }
     </style>
 </head>
 <body>
