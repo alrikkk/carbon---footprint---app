@@ -76,12 +76,16 @@ html_template = """
         // Banana Rain Effect
         document.getElementById('banana-header').addEventListener('mouseover', () => {
             confetti({
-                particleCount: 50,
+                particleCount: 40,
                 spread: 70,
-                origin: { y: 0.2 },
-                shapes: ['circle'],
-                scalar: 2,
-                emoji: ['🍌']
+                origin: { y: 0.1 },
+                scalar: 3,
+                shapes: ['text'],
+                shapeOptions: {
+                    text: {
+                        textValue: '🍌',
+                    }
+                }
             });
         });
 
