@@ -29,8 +29,9 @@ html_template = """
         button { width: 100%; padding: 15px; background: #0071e3; color: white; border: none; border-radius: 20px; cursor: pointer; transition: 0.4s; margin-top: 10px; }
         button:hover { background: #ff69b4; transform: translateY(-3px); }
         
-        #leaderboard { margin-top: 30px; text-align: left; color: white; font-size: 0.8rem; }
-        .xp-fill { height: 25px; width: 0%; border-radius: 12px; transition: width 2s; }
+        .feedback { margin-top: 20px; color: white; font-weight: bold; font-size: 0.8rem; }
+        #leaderboard { margin-top: 20px; text-align: left; color: white; font-size: 0.8rem; }
+        .xp-fill { height: 20px; width: 0%; border-radius: 10px; transition: width 2s; }
     </style>
 </head>
 <body>
@@ -50,10 +51,11 @@ html_template = """
         </form>
 
         {% if score %}
-        <div style="background: rgba(0,0,0,0.2); height: 25px; border-radius: 12px; margin-top: 20px;">
+        <div style="background: rgba(0,0,0,0.2); height: 20px; border-radius: 10px; margin-top: 20px;">
             <div id="xp" class="xp-fill" style="background-color: {{ color }}; width: {{ score_pct }}%;"></div>
         </div>
-        <p style="color:white; font-weight:bold;">Rank: {{ rank }}</p>
+        <p class="feedback">Rank: {{ rank }}</p>
+        <p class="feedback" style="color: #ffff00;">💡 Tip: {{ tip }}</p>
         {% endif %}
 
         <div id="leaderboard">
@@ -73,13 +75,8 @@ html_template = """
 
         let lb = JSON.parse(localStorage.getItem('ecoHistory') || '[]');
         let titles = ["Global Warming Itself 🌋", "Smokestack Enthusiast 🏭", "Carbon Foot-print-maker 👣"];
-        
-        // Update total user count
         document.getElementById('user-count').innerText = lb.length;
-        
-        // Update Leaderboard (Limit to Top 3)
-        let topThree = lb.slice(0, 3);
-        topThree.forEach((item, i) => {
+        lb.slice(0, 3).forEach((item, i) => {
             document.getElementById('lb-list').innerHTML += `<li>${titles[i]}: ${item.name} (${item.score.toFixed(0)} pts)</li>`;
         });
     </script>
@@ -97,11 +94,17 @@ def index():
         km = dist * 1.609 if unit == 'miles' else dist
         score = min((km * 0.2) + (meat * 5), 300)
         
-        if score < 50: rank, color = "Eco-Warrior 🏆", "#2ecc71"
-        elif score < 150: rank, color = "Intermediate 🥈", "#f1c40f"
-        else: rank, color = "Needs Improvement 🥉", "#e74c3c"
+        if score < 50: 
+            rank, color = "Eco-Warrior 🏆", "#2ecc71"
+            tip = "Keep up the biking! Try local produce to save even more."
+        elif score < 150: 
+            rank, color = "Intermediate 🥈", "#f1c40f"
+            tip = "Swap one meat meal for legumes this week!"
+        else: 
+            rank, color = "Needs Improvement 🥉", "#e74c3c"
+            tip = "Try carpooling or public transit to slash your footprint."
         
-        return render_template_string(html_template, username=username, score=score, score_pct=(score/300)*100, color=color, rank=rank)
+        return render_template_string(html_template, username=username, score=score, score_pct=(score/300)*100, color=color, rank=rank, tip=tip)
     return render_template_string(html_template)
 
 if __name__ == '__main__':
