@@ -21,8 +21,11 @@ html_template = """
         select { position: absolute; right: 10px; background: transparent; font-weight: bold; cursor: pointer; outline: none; width: auto; }
         
         button { width: 100%; padding: 15px; background: #0071e3; color: white; border: none; border-radius: 20px; cursor: pointer; margin-top: 15px; }
-        .xp-container { background: rgba(0,0,0,0.2); height: 25px; border-radius: 12px; margin-top: 20px; overflow: hidden; }
-        .xp-fill { height: 100%; width: 0%; transition: width 2s ease-in-out; border-radius: 12px; }
+        
+        /* XP Bar - The 'Game' Feel */
+        .xp-container { background: rgba(0,0,0,0.2); height: 25px; border-radius: 12px; margin-top: 20px; overflow: hidden; position: relative; }
+        .xp-fill { height: 100%; width: 0%; transition: width 2s cubic-bezier(0.17, 0.67, 0.5, 1.03); border-radius: 12px; }
+        
         .feedback { margin-top: 20px; color: white; font-weight: bold; }
         .methodology { margin-top: 20px; color: rgba(255,255,255,0.7); font-size: 0.7rem; }
         .warning-flash { background: rgba(255, 99, 71, 0.6) !important; }
@@ -42,18 +45,20 @@ html_template = """
             <input type="number" name="meat" placeholder="Meat meals/week" required>
             <button type="submit">CALCULATE SCORE</button>
         </form>
+        
         {% if warning %}
             <p class="feedback">⚠️ {{ warning }}</p>
             <script> document.getElementById('card').classList.add('warning-flash'); </script>
         {% elif score %}
-            <div class="xp-container"><div id="xp" class="xp-fill" style="width: {{ score_pct }}%; background-color: {{ color }};"></div></div>
+            <div class="xp-container"><div id="xp" class="xp-fill" style="background-color: {{ color }};"></div></div>
             <p class="feedback">{{ message }}</p>
             <p class="methodology">Calculations based on average CO2 impact.</p>
+            <script>
+                // This ensures the animation triggers AFTER the page renders
+                setTimeout(() => { document.getElementById('xp').style.width = '{{ score_pct }}%'; }, 300);
+            </script>
         {% endif %}
     </div>
-    <script>
-        {% if score %} setTimeout(() => { document.getElementById('xp').style.width = '{{ score_pct }}%'; }, 100); {% endif %}
-    </script>
 </body>
 </html>
 """
