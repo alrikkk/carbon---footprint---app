@@ -33,7 +33,6 @@ html_template = """
             text-shadow: 4px 4px 0px #000000; 
         }
         
-        /* Updated to Headphones icon */
         .headphones { 
             width: 45px; height: auto; 
             animation: float 3s ease-in-out infinite;
@@ -42,11 +41,13 @@ html_template = """
         
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
 
+        /* Updated Input Styling with inset shadow for depth */
         input { 
             width: 100%; padding: 15px; margin: 10px 0; 
             background: rgba(200, 200, 200, 0.5); 
             border: 1.5px solid rgba(255, 255, 255, 0.8); 
-            border-radius: 15px; box-sizing: border-box; font-size: 16px; outline: none; color: white; 
+            border-radius: 15px; box-sizing: border-box; font-size: 16px; outline: none; color: white;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.2); /* Added depth shadow */
         }
         input::placeholder { color: rgba(255, 255, 255, 0.9); }
         input:focus { background: rgba(200, 200, 200, 0.7); border-color: white; }
