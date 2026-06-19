@@ -19,7 +19,6 @@ html_template = """
 
         .subtitle { font-family: 'Press Start 2P', cursive; color: #fff; font-size: 0.7rem; margin: 0; text-shadow: 2px 2px 0px #000000; }
         
-        /* Sprout Emoji Icon */
         .icon-container { font-size: 3rem; animation: float 3s ease-in-out infinite; margin-bottom: 5px; }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
         
@@ -45,7 +44,7 @@ html_template = """
     <div class="card" id="card">
         <div class="header-container">
             <div class="icon-container">🌱</div>
-            <h2>Lif</h2>
+            <h2>EcoLife</h2>
             <p class="subtitle">Track your carbon footprint.</p>
         </div>
         <form method="POST">
