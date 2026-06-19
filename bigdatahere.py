@@ -19,7 +19,6 @@ html_template = """
         .icon-container { font-size: 3rem; animation: float 3s infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         
-        /* Remove spinner arrows from number inputs */
         input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
         
@@ -58,8 +57,9 @@ html_template = """
         {% endif %}
 
         <div id="leaderboard">
-            <h3>Leaderboard (<span id="user-count">0</span> users):</h3>
+            <h3>Top 3 Scorers:</h3>
             <ol id="lb-list"></ol>
+            <p><strong>Total participants: <span id="user-count">0</span></strong></p>
         </div>
     </div>
 
@@ -68,13 +68,18 @@ html_template = """
             let history = JSON.parse(localStorage.getItem('ecoHistory') || '[]');
             history.push({name: '{{ username }}', score: {{ score }}, rank: '{{ rank }}'});
             history.sort((a,b) => b.score - a.score);
-            localStorage.setItem('ecoHistory', JSON.stringify(history.slice(0,3)));
+            localStorage.setItem('ecoHistory', JSON.stringify(history));
         {% endif %}
 
         let lb = JSON.parse(localStorage.getItem('ecoHistory') || '[]');
         let titles = ["Global Warming Itself 🌋", "Smokestack Enthusiast 🏭", "Carbon Foot-print-maker 👣"];
+        
+        // Update total user count
         document.getElementById('user-count').innerText = lb.length;
-        lb.forEach((item, i) => {
+        
+        // Update Leaderboard (Limit to Top 3)
+        let topThree = lb.slice(0, 3);
+        topThree.forEach((item, i) => {
             document.getElementById('lb-list').innerHTML += `<li>${titles[i]}: ${item.name} (${item.score.toFixed(0)} pts)</li>`;
         });
     </script>
