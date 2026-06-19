@@ -16,55 +16,30 @@ html_template = """
             display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; 
         }
         .card { 
-            background: rgba(255, 255, 255, 0.4); 
-            backdrop-filter: blur(25px) saturate(180%); 
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            background-image: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 100%);
-            padding: 50px; border-radius: 40px; 
-            box-shadow: 0 40px 80px rgba(0,0,0,0.2); 
-            width: 100%; max-width: 450px; text-align: center;
+            background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(25px) saturate(180%); 
+            border: 1px solid rgba(255, 255, 255, 0.5); padding: 50px; border-radius: 40px; 
+            box-shadow: 0 40px 80px rgba(0,0,0,0.2); width: 100%; max-width: 450px; text-align: center;
+            transition: background 0.5s ease;
         }
-        
         .header-container { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 30px; }
-        
-        h2 { 
-            font-family: 'Press Start 2P', cursive;
-            color: #ffffff; font-size: 1.5rem; 
-            text-shadow: 4px 4px 0px #000000; 
-        }
-        
-        .leaf-icon { 
-            width: 45px; height: auto; 
-            animation: float 3s ease-in-out infinite;
-            image-rendering: pixelated; 
-        }
-        
+        h2 { font-family: 'Press Start 2P', cursive; color: #ffffff; font-size: 1.5rem; text-shadow: 4px 4px 0px #000000; }
+        .leaf-icon { width: 45px; height: auto; animation: float 3s ease-in-out infinite; image-rendering: pixelated; }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-
         input { 
-            width: 100%; padding: 15px; margin: 10px 0; 
-            background: rgba(200, 200, 200, 0.5); 
-            border: 1.5px solid rgba(255, 255, 255, 0.8); 
-            border-radius: 15px; box-sizing: border-box; font-size: 16px; outline: none; color: white;
-            box-shadow: inset 0 3px 6px rgba(0,0,0,0.2);
+            width: 100%; padding: 15px; margin: 10px 0; background: rgba(200, 200, 200, 0.5); 
+            border: 1.5px solid rgba(255, 255, 255, 0.8); border-radius: 15px; box-sizing: border-box; 
+            font-size: 16px; outline: none; color: white; box-shadow: inset 0 3px 6px rgba(0,0,0,0.2); 
         }
-        input::placeholder { color: rgba(255, 255, 255, 0.9); }
-        input:focus { background: rgba(200, 200, 200, 0.7); border-color: white; }
-        
-        button { 
-            width: auto; padding: 12px 30px; background: rgba(0, 113, 227, 0.8); color: white; border: none; 
-            border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; 
-            transition: all 0.4s ease; margin-top: 25px; 
-        }
+        button { width: auto; padding: 12px 30px; background: rgba(0, 113, 227, 0.8); color: white; border: none; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.4s ease; margin-top: 25px; }
         button:hover { background: rgba(255, 105, 180, 0.9); transform: translateY(-3px); }
-        
         .result { margin-top: 30px; padding: 25px; background: rgba(255, 255, 255, 0.2); border-radius: 25px; color: white; }
-        
-        /* Credibility footer */
         .methodology { margin-top: 20px; color: rgba(255,255,255,0.7); font-size: 0.75rem; }
         
+        /* Effects */
         .shake { animation: shake 0.5s; }
         @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
+        .warning-flash { background: rgba(255, 99, 71, 0.6) !important; animation: flash 0.8s ease; }
+        @keyframes flash { 0% { border-color: white; } 50% { border-color: red; } 100% { border-color: white; } }
     </style>
 </head>
 <body>
@@ -74,22 +49,24 @@ html_template = """
             <img src="https://cdn-icons-png.flaticon.com/512/875/875567.png" class="leaf-icon" alt="Leaf">
         </div>
         <form method="POST">
-            <input type="number" name="commute" inputmode="numeric" step="0.1" max="500" placeholder="Daily Commute (km)" required>
-            <input type="number" name="meat" inputmode="numeric" max="21" placeholder="Meat meals per week" required>
+            <input type="number" name="commute" inputmode="numeric" step="0.1" placeholder="Daily Commute (km)" required>
+            <input type="number" name="meat" inputmode="numeric" placeholder="Meat meals per week" required>
             <button type="submit">GET MY SCORE</button>
         </form>
-        {% if footprint %}
+        {% if warning %}
+            <div class="result" id="result-box">
+                <p><strong>⚠️ {{ warning }}</strong></p>
+            </div>
+            <script> document.getElementById('card').classList.add('warning-flash'); </script>
+        {% elif footprint %}
             <div class="result" id="result-box">
                 <p>Weekly Emissions: <strong>{{ footprint }} kg</strong></p>
                 <p>Rank: <strong>{{ rank }}</strong></p>
             </div>
             <p class="methodology">Calculations based on average CO2 impact per km and meal.</p>
             <script>
-                {% if rank == "Eco-Warrior 🏆" %}
-                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-                {% elif rank == "Needs Improvement 🥉" %}
-                    document.getElementById('card').classList.add('shake');
-                {% endif %}
+                {% if rank == "Eco-Warrior 🏆" %} confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+                {% elif rank == "Needs Improvement 🥉" %} document.getElementById('card').classList.add('shake'); {% endif %}
             </script>
         {% endif %}
     </div>
@@ -99,15 +76,21 @@ html_template = """
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    footprint, rank = None, None
+    footprint, rank, warning = None, None, None
     if request.method == 'POST':
         commute = float(request.form.get('commute', 0))
         meat = float(request.form.get('meat', 0))
-        footprint = round((commute * 0.2) + (meat * 5), 2)
-        if footprint < 50: rank = "Eco-Warrior 🏆"
-        elif footprint < 150: rank = "Intermediate 🥈"
-        else: rank = "Needs Improvement 🥉"
-    return render_template_string(html_template, footprint=footprint, rank=rank)
+        
+        # Extreme value check
+        if commute > 1000 or meat > 50:
+            warning = "Whoa there, space traveler! That's a bit extreme for a daily habit. Let's try something a bit more realistic."
+        else:
+            footprint = round((commute * 0.2) + (meat * 5), 2)
+            if footprint < 50: rank = "Eco-Warrior 🏆"
+            elif footprint < 150: rank = "Intermediate 🥈"
+            else: rank = "Needs Improvement 🥉"
+            
+    return render_template_string(html_template, footprint=footprint, rank=rank, warning=warning)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
