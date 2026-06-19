@@ -14,7 +14,7 @@ html_template = """
         .header-container { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 25px; }
         h2 { font-family: 'Press Start 2P', cursive; color: white; font-size: 1.2rem; text-shadow: 4px 4px 0px #000000; }
         
-        /* The Pixel Leaf - using a direct, reliable 8-bit asset */
+        /* The Pixel Leaf */
         .leaf-icon { width: 45px; height: auto; animation: float 3s ease-in-out infinite; image-rendering: pixelated; }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
         
@@ -39,7 +39,7 @@ html_template = """
 <body>
     <div class="card" id="card">
         <div class="header-container">
-            <h2>ECOTRACK</h2>
+            <h2>Lif</h2>
             <img src="https://cdn-icons-png.flaticon.com/512/3241/3241834.png" class="leaf-icon" alt="Leaf">
         </div>
         <form method="POST">
